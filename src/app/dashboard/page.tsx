@@ -1,0 +1,20 @@
+import { RedisServerStatusCard } from '@/components/redis-server-status-card'
+import RedisClient from '@/services/redis-client'
+
+export const revalidate = 3600
+
+export default async function DashboardPage() {
+  const redisServiceIsUpAndRunning = await RedisClient.isRedisServiceIsUpAndRunning()
+
+  return (
+    <main className="@container/main flex flex-1 flex-col gap-10 px-5 py-10 md:p-10">
+      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-1 @5xl/main:grid-cols-1">
+        <RedisServerStatusCard redisServiceIsUpAndRunning={redisServiceIsUpAndRunning} />
+      </div>
+
+      <div className="flex flex-col gap-10">
+        <h2 className="text-xl font-bold">Available Operations</h2>
+      </div>
+    </main>
+  )
+}
