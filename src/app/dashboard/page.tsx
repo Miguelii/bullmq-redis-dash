@@ -3,7 +3,9 @@ import { JobsMonitoringCard } from '@/components/jobs-monitoring-card'
 import { RedisServerStatusCard } from '@/components/redis-server-status-card'
 import RedisClient from '@/services/redis-client'
 
-export const revalidate = 3600
+export const revalidate = 3600;
+
+export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
    const redisServiceIsUpAndRunning = await RedisClient.isRedisServiceIsUpAndRunning()
