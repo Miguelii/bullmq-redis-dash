@@ -1,5 +1,5 @@
-import { RedisClientType } from "./RedisClientType";
+import { RedisQueueMap } from './RedisQueueMap'
 
 declare global {
-  var __redisClient: RedisClientType | undefined;
+   var __bullQueues: RedisQueueMap | undefined
 }
