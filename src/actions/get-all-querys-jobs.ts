@@ -4,12 +4,17 @@ import { tryCatch } from '@/lib/try-catch'
 import { type RedisJobInfo } from '@/types/RedisJobInfo'
 import { RedisJobStatusEnum } from '@/types/RedisJobStatusEnum'
 import { type Job } from 'bullmq'
+import RedisClient from '@/lib/redis-client'
 
 export async function getAllQueryJobs() {
    const { data, error } = await tryCatch(async () => {
-      const allJobs: RedisJobInfo[] = []
+      if (!global.__bullQueues || Object.keys(global.__bullQueues).length === 0) {
+         await RedisClient.preloadQueuesFromRedis()
+      }
 
       const queues = global.__bullQueues ?? {}
+
+      const allJobs: RedisJobInfo[] = []
 
       for (const [queueName, queue] of Object.entries(queues)) {
          try {
