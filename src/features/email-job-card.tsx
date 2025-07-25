@@ -1,13 +1,14 @@
 'use client'
 
 import { MailIcon, Plus } from 'lucide-react'
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from './ui/card'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { trpc } from '@/trpc-server/client-provider'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/card'
 
 export function EmailJobCard() {
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const [isPending, startTransition] = useTransition()
 
    const utils = trpc.useUtils()
@@ -33,6 +34,7 @@ export function EmailJobCard() {
 
    const jobHandler = () => {
       startTransition(async () => {
+         toast('Adding E-mail job...')
          await addJobToEmailQueueAction.mutate()
       })
    }
@@ -59,7 +61,7 @@ export function EmailJobCard() {
          </CardHeader>
          <CardContent className="pt-0">
             <CardDescription className="text-sm text-gray-600">
-               Send bulk emails to your subscriber list.
+               Send bulk emails to a list of users.
             </CardDescription>
          </CardContent>
       </Card>

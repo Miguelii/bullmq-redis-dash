@@ -1,9 +1,9 @@
 import 'server-only' // <-- ensure this file cannot be imported from the client
 
 import { tryCatch } from '@/lib/try-catch'
-import RedisClient from './redis-client'
 import { RedisQueueEnum } from '@/types/RedisQueueEnum'
 import { revalidatePath } from 'next/cache'
+import RedisClient from '@/lib/redis-client'
 
 export async function addJobToEmailQueueAction() {
    const { data, error } = await tryCatch(async () => {

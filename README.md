@@ -1,13 +1,22 @@
-# 🎯 Campaign Queue Dash
+# 🎯 QueueDash
 
-A simple and educational demo showcasing how to manage background tasks in a political campaign using [BullMQ](https://docs.bullmq.io/), [Redis](https://redis.io/), and [Next.js](https://nextjs.org/).
+A simple and educational demo showcasing how to manage background tasks using [BullMQ](https://docs.bullmq.io/), [Redis](https://redis.io/), and [Next.js](https://nextjs.org/).
+
+This application demonstrates how to offload long or intensive processes (like sending emails, processing files, or performing heavy computations) to background jobs using a queue system.
 
 ---
 
-## 📘 About the Project
+## Technologies
 
-**Campaign Queue Dash** simulates a basic SaaS platform that any team could use to automate and monitor operational tasks.
+- **Next.js** – Framework for frontend and API routes.
+   - React Compiler
+   - Partial Prerendering (PPR)
+   - App Router
 
-This demo focuses on queue-based processing to handle events like mass email dispatches, volunteer coordination, and scheduled posts — all without blocking the main application.
+- **tRPC** - End-to-end typesafe API between the Next.js frontend and API routes.
+   - React Query for caching and revalidating
 
-It’s a great starting point for developers looking to showcase their skills in asynchronous task handling, queues, and real-world application structure.
+- **Redis** - An in-memory data store used by BullMQ to persist job states and manage queues.
+
+- **BullMQ** - A Node.js library for creating and managing job queues based on Redis.
+   - Worker process running in a dedicated Node.js API

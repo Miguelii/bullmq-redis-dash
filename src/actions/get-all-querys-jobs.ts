@@ -28,6 +28,7 @@ export async function getAllQueryJobs() {
             }))
 
             allJobs.push(...formattedJobs)
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
          } catch (error) {
             /* empty */
          }

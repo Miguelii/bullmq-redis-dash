@@ -1,6 +1,7 @@
 import { publicProcedure, createTRPCRouter } from './trpc'
-import { getAllQueryJobs } from '@/services/get-all-querys-jobs'
-import { addJobToEmailQueueAction } from '@/services/add-job-to-email-queue-action'
+import { getAllQueryJobs } from '@/actions/get-all-querys-jobs'
+import { addJobToEmailQueueAction } from '@/actions/add-job-to-email-queue'
+import { timeout } from '@/lib/timeout'
 
 export const appRouter = createTRPCRouter({
    getAllQueryJobs: publicProcedure.query(async () => {
@@ -8,7 +9,7 @@ export const appRouter = createTRPCRouter({
    }),
 
    addJobToEmailQueueAction: publicProcedure.mutation(async () => {
-      return await addJobToEmailQueueAction()
+      return await timeout(5_000, addJobToEmailQueueAction())
    }),
 })
 

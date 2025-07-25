@@ -1,8 +1,8 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import { SidebarTrigger } from '@/components/ui/sidebar'
+import { Button } from '@/components/button'
+import { Separator } from '@/components/separator'
+import { SidebarTrigger } from '@/components/sidebar'
 import { useSidebarData } from '@/hooks/use-sidebar-data'
 import { usePathname } from 'next/navigation'
 

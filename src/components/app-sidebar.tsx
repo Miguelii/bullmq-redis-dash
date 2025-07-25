@@ -10,7 +10,7 @@ import {
    SidebarMenu,
    SidebarMenuButton,
    SidebarMenuItem,
-} from '@/components/ui/sidebar'
+} from '@/components/sidebar'
 import { NavMain } from './nav-main'
 import Link from 'next/link'
 import { useSidebarData } from '@/hooks/use-sidebar-data'
@@ -26,7 +26,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
                      <Link prefetch={false} href={'/'}>
                         <IconInnerShadowTop className="!size-5" />
-                        <span className="text-base font-semibold">CampaignQueueDash</span>
+                        <span className="text-base font-semibold">QueueDash</span>
                      </Link>
                   </SidebarMenuButton>
                </SidebarMenuItem>

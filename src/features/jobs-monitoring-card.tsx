@@ -1,14 +1,14 @@
 'use client'
 
 import { Clock, CheckCircle2, XCircle, MailIcon } from 'lucide-react'
-import { Card, CardContent, CardHeader } from './ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
-import { ScrollArea } from './ui/scroll-area'
 import { RedisJobInfo } from '@/types/RedisJobInfo'
-import { Badge } from './ui/badge'
 import { cn } from '@/lib/utils'
 import { RedisJobStatusEnum } from '@/types/RedisJobStatusEnum'
 import { trpc } from '@/trpc-server/client-provider'
+import { Card, CardContent, CardHeader } from '@/components/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/tabs'
+import { ScrollArea } from '@/components/scroll-area'
+import { Badge } from '@/components/badge'
 
 export function JobsMonitoringCard() {
    const request = trpc.getAllQueryJobs.useQuery(undefined, {
@@ -22,22 +22,31 @@ export function JobsMonitoringCard() {
       <Card>
          <Tabs defaultValue="pending" className="w-full">
             <CardHeader className="pb-3 h-full">
-               <TabsList className="grid w-full grid-cols-1 lg:grid-cols-3 h-full">
-                  <TabsTrigger value="pending" className="flex items-center gap-2 cursor-pointer">
+               <TabsList className="grid w-full grid-cols-1 lg:grid-cols-3 h-full items-center">
+                  <TabsTrigger
+                     value="pending"
+                     className="flex items-center gap-2 cursor-pointer justify-start lg:justify-center h-10 lg:h-8"
+                  >
                      <Clock className="w-4 h-4" />
                      <>
                         Pending {''}
                         {!request.isLoading && <>({request?.data?.totalPending ?? null})</>}
                      </>
                   </TabsTrigger>
-                  <TabsTrigger value="completed" className="flex items-center gap-2 cursor-pointer">
+                  <TabsTrigger
+                     value="completed"
+                     className="flex items-center gap-2 cursor-pointer justify-start lg:justify-center h-10 lg:h-8"
+                  >
                      <CheckCircle2 className="w-4 h-4" />
                      <>
                         Completed {''}
                         {!request.isLoading && <>({request?.data?.totalCompleted ?? null})</>}
                      </>
                   </TabsTrigger>
-                  <TabsTrigger value="failed" className="flex items-center gap-2 cursor-pointer">
+                  <TabsTrigger
+                     value="failed"
+                     className="flex items-center gap-2 cursor-pointer justify-start lg:justify-center h-10 lg:h-8"
+                  >
                      <XCircle className="w-4 h-4" />
                      <>
                         Failed {''}
@@ -56,7 +65,7 @@ export function JobsMonitoringCard() {
                               <JobMonitoringCardItem
                                  job={item as RedisJobInfo}
                                  Icon={MailIcon}
-                                 key={`pending-job-${item.id}`}
+                                 key={`pending-job-${item.id}-${index}`}
                               />
                            ))}
                         </div>
@@ -115,7 +124,7 @@ function JobMonitoringCardItem({ job, Icon }: JobMonitoringCardItemProps) {
                <Icon className="w-5 h-5 shrink-0 text-blue-500" />
             </div>
             <div className="flex min-w-0 flex-col gap-2">
-               <div className="flex items-center gap-2 mb-1">
+               <div className="flex items-center gap-2">
                   <h4 className="font-medium text-gray-900 truncate capitalize">{job.name}</h4>
                   <Badge variant="outline" className={cn(badgeVariant.className)}>
                      {badgeVariant.Icon && <badgeVariant.Icon className="w-3 h-3 mr-1" />}
@@ -125,11 +134,8 @@ function JobMonitoringCardItem({ job, Icon }: JobMonitoringCardItemProps) {
 
                <p className="text-sm text-gray-600 mb-2">ID: {job.id}</p>
 
-               <div className="flex flex-col gap-0.5">
-                  <label className="text-sm text-gray-600">Request Body:</label>
-                  <div className="bg-muted/50 p-4 text-sm whitespace-pre-wrap font-mono line-clamp-4">
-                     {JSON.stringify(job.data, null, 2)}
-                  </div>
+               <div className="bg-muted/50 p-4 text-sm whitespace-pre-wrap font-mono line-clamp-4">
+                  This job represents a bulk operation targeting all users in a specified list.
                </div>
             </div>
          </div>

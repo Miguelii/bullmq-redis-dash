@@ -1,13 +1,18 @@
+import { type RedisQueueMap } from '@/types/RedisQueueMap'
 import { Queue } from 'bullmq'
 import Redis from 'ioredis'
+import { tryCatch } from './try-catch'
 
 export default class RedisClient {
    private static redisClient: Redis | null = null
-   //private static queueCache: RedisQueueMap = global.__bullQueues ?? {}
+   private static queueCache: RedisQueueMap = global.__bullQueues ?? {}
 
    static getRedisClient(): Redis {
       if (!this.redisClient) {
-         this.redisClient = new Redis(process.env.REDIS_URL!)
+         this.redisClient = new Redis({
+            host: process.env.REDIS_URL!,
+            maxRetriesPerRequest: 1,
+         })
 
          this.redisClient.on('error', (err) => {
             console.error('Redis Client Error', err)
@@ -16,13 +21,16 @@ export default class RedisClient {
       return this.redisClient
    }
 
-   static async isRedisServiceIsUpAndRunning(): Promise<boolean> {
-      if (!this.redisClient) {
-         this.getRedisClient()
-      }
+   static async isRedisServiceUpAndRunning(): Promise<boolean> {
+      const { data } = await tryCatch(async () => {
+         if (!this.redisClient) {
+            this.getRedisClient()
+         }
+         const ping = await this.redisClient?.ping()
+         return ping?.trim()?.toUpperCase() === 'PONG'
+      })
 
-      const ping = await this.redisClient?.ping()
-      return ping?.trim()?.toUpperCase() === 'PONG'
+      return data ?? false
    }
 
    static async getQueue(name: string): Promise<Queue> {
@@ -37,7 +45,7 @@ export default class RedisClient {
 
       global.__bullQueues[name] = queue
 
-      //this.queueCache = global.__bullQueues
+      this.queueCache = global.__bullQueues
 
       return queue
    }

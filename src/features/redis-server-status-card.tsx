@@ -1,15 +1,14 @@
-import { Card, CardHeader, CardTitle, CardFooter } from './ui/card'
-import { Badge } from './ui/badge'
 import { CheckCircle, XCircle } from 'lucide-react'
+import RedisClient from '@/lib/redis-client'
+import { Card, CardHeader, CardTitle, CardFooter } from '@/components/card'
+import { Badge } from '@/components/badge'
 
-type RedisServerStatusCardProps = {
-   redisServiceIsUpAndRunning: boolean
-}
+export async function RedisServerStatusCard() {
+   const redisServiceIsUpAndRunning = await RedisClient.isRedisServiceUpAndRunning()
 
-export function RedisServerStatusCard({ redisServiceIsUpAndRunning }: RedisServerStatusCardProps) {
    return (
       <Card className="@container/card">
-         <CardHeader className="flex flex-col gap-5 lg:flex-row w-full justify-between items-center">
+         <CardHeader className="flex flex-col gap-5 lg:flex-row w-full justify-between items-start lg:items-center">
             <CardTitle className="text-bold">Redis Server Status</CardTitle>
             <Badge variant={'outline'} className="flex items-center gap-1.5">
                {redisServiceIsUpAndRunning ? (
