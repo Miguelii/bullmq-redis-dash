@@ -8,11 +8,9 @@ import RedisClient from '@/lib/redis-client'
 
 export async function getAllQueryJobs() {
    const { data, error } = await tryCatch(async () => {
-      if (!global.__bullQueues || Object.keys(global.__bullQueues).length === 0) {
-         await RedisClient.preloadQueuesFromRedis()
-      }
+      await RedisClient.preloadQueuesFromRedis()
 
-      const queues = global.__bullQueues ?? {}
+      const queues = RedisClient.getQueuesCache()
 
       const allJobs: RedisJobInfo[] = []
 
