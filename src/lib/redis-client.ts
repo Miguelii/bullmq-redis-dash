@@ -9,10 +9,7 @@ export default class RedisClient {
 
    static getRedisClient(): Redis {
       if (!this.redisClient) {
-         this.redisClient = new Redis({
-            host: process.env.REDIS_URL!,
-            maxRetriesPerRequest: 1,
-         })
+         this.redisClient = new Redis(process.env.REDIS_URL!)
 
          this.redisClient.on('error', (err) => {
             console.error('Redis Client Error', err)

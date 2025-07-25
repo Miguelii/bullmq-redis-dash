@@ -11,6 +11,13 @@ export const appRouter = createTRPCRouter({
    addJobToEmailQueueAction: publicProcedure.mutation(async () => {
       return await timeout(5_000, addJobToEmailQueueAction())
    }),
+
+   healthCheck: publicProcedure.query(async () => {
+      return {
+         status: 200,
+         success: true,
+      }
+   }),
 })
 
 // export type definition of API

@@ -25,9 +25,9 @@ export function JobsMonitoringCard() {
                <TabsList className="grid w-full grid-cols-1 lg:grid-cols-3 h-full items-center">
                   <TabsTrigger
                      value="pending"
-                     className="flex items-center gap-2 cursor-pointer justify-start lg:justify-center h-10 lg:h-8"
+                     className="flex items-center gap-2 cursor-pointer justify-start lg:justify-center h-10 lg:h-8 "
                   >
-                     <Clock className="w-4 h-4" />
+                     <Clock className="w-4 h-4 text-yellow-800 " />
                      <>
                         Pending {''}
                         {!request.isLoading && <>({request?.data?.totalPending ?? null})</>}
@@ -37,7 +37,7 @@ export function JobsMonitoringCard() {
                      value="completed"
                      className="flex items-center gap-2 cursor-pointer justify-start lg:justify-center h-10 lg:h-8"
                   >
-                     <CheckCircle2 className="w-4 h-4" />
+                     <CheckCircle2 className="w-4 h-4 text-green-800" />
                      <>
                         Completed {''}
                         {!request.isLoading && <>({request?.data?.totalCompleted ?? null})</>}
@@ -47,7 +47,7 @@ export function JobsMonitoringCard() {
                      value="failed"
                      className="flex items-center gap-2 cursor-pointer justify-start lg:justify-center h-10 lg:h-8"
                   >
-                     <XCircle className="w-4 h-4" />
+                     <XCircle className="w-4 h-4 text-red-800" />
                      <>
                         Failed {''}
                         {!request.isLoading && <>({request?.data?.totalFailed ?? null})</>}
