@@ -102,7 +102,6 @@ export function JobsMonitoringCard() {
                      </ScrollArea>
                   )}
                </TabsContent>
-
             </CardContent>
          </Tabs>
       </Card>

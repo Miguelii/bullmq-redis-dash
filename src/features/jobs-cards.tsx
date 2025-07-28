@@ -1,12 +1,13 @@
 'use client'
 
-import { LucideIcon, MailIcon, Plus } from 'lucide-react'
+import { BellIcon, LucideIcon, MailIcon, Plus } from 'lucide-react'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { trpc } from '@/trpc-server/client-provider'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/card'
 import { type ExpectedJobsType } from '@/actions/add-job-to-email-queue.schema'
+import { cn } from '@/lib/utils'
 
 export function JobsCards() {
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -42,36 +43,37 @@ export function JobsCards() {
 
    return (
       <div className="grid grid-cols-1 lg:grid-cols-2 XL:grid-cols-4 gap-4">
-         <JobCardItem 
+         <JobCardItem
             onClick={() => {
-               jobHandler("send-email")
+               jobHandler('send-email')
             }}
-            title='Email Campaign'
-            description='This job represents a bulk operation targeting all users in a email list.'
+            title="Email Campaign"
+            description="This job represents a bulk operation targeting all users in a email list."
             Icon={MailIcon}
+            iconClass="bg-blue-500 text-white"
          />
-         <JobCardItem 
+         <JobCardItem
             onClick={() => {
-               jobHandler("send_notification")
+               jobHandler('send_notification')
             }}
-            title='Notification Campaign'
-            description='This job represents a failing operation that will always return an error.'
-            Icon={MailIcon}
+            title="Notification Campaign"
+            description="This job represents a failing operation that will always return an error."
+            Icon={BellIcon}
+            iconClass="bg-red-500 text-white"
          />
-
       </div>
    )
 }
 
-
 type JobCardItemProps = {
-   onClick: () => void;
-   title: string;
-   description: string;
-   Icon: LucideIcon;
+   onClick: () => void
+   title: string
+   description: string
+   Icon: LucideIcon
+   iconClass: string
 }
 
-function JobCardItem({ onClick, title, description, Icon }: JobCardItemProps) {
+function JobCardItem({ onClick, title, description, Icon, iconClass }: JobCardItemProps) {
    return (
       <Card
          className="cursor-pointer hover:shadow-md transition-shadow duration-200 group"
@@ -82,7 +84,10 @@ function JobCardItem({ onClick, title, description, Icon }: JobCardItemProps) {
          <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
                <div
-                  className={`p-2 rounded-lg bg-blue-500 text-white group-hover:scale-110 transition-transform duration-200`}
+                  className={cn(
+                     `p-2 rounded-lg group-hover:scale-110 transition-transform duration-200`,
+                     iconClass
+                  )}
                >
                   <Icon className="w-5 h-5" />
                </div>
@@ -93,9 +98,7 @@ function JobCardItem({ onClick, title, description, Icon }: JobCardItemProps) {
             </div>
          </CardHeader>
          <CardContent className="pt-0">
-            <CardDescription className="text-sm text-gray-600">
-               {description}
-            </CardDescription>
+            <CardDescription className="text-sm text-gray-600">{description}</CardDescription>
          </CardContent>
       </Card>
    )

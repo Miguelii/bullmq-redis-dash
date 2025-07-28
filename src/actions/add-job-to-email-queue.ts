@@ -8,7 +8,6 @@ import { addJobToEmailQueueActionProps } from './add-job-to-email-queue.schema'
 
 export async function addJobToEmailQueueAction({ job }: addJobToEmailQueueActionProps) {
    const { data, error } = await tryCatch(async () => {
-
       let success = false
       let jobId = null
 
