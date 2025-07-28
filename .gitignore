@@ -43,3 +43,8 @@ next-env.d.ts
 .vercel
 
 package-lock.json
+
+# Node Server things
+/node-server/node_modules
+/node-server/dist
+/node-server/package-lock.json

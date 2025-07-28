@@ -13,10 +13,8 @@ import { Badge } from '@/components/badge'
 export function JobsMonitoringCard() {
    const request = trpc.getAllQueryJobs.useQuery(undefined, {
       staleTime: 0,
-      refetchInterval: 5 * 60 * 1000, //5min
+      refetchInterval: 20 * 1000, // 20 segundos
    })
-
-   //console.log(request.data);
 
    return (
       <Card>
