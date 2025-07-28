@@ -3,7 +3,7 @@ import { Worker } from 'bullmq';
 
 import { Redis } from 'ioredis';
 
-const hostname = '127.0.0.1';
+const hostname = '0.0.0.0';
 
 const port = 3000;
 
@@ -26,6 +26,9 @@ const worker = new Worker(
 );
 
 const server = http.createServer((req, res) => {
+
+  console.log(process.env)
+
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.end('Worker is running\n');
