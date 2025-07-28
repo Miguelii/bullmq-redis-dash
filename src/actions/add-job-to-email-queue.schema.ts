@@ -1,6 +1,6 @@
 import z from 'zod'
 
-const ExpectedJobs = z.enum(['send-email', 'send_notification'])
+export const ExpectedJobs = z.enum(['send-email', 'send_notification'])
 
 export type ExpectedJobsType = z.infer<typeof ExpectedJobs>
 

@@ -27,6 +27,9 @@ export default function RootPage() {
                      <li>React Compiler</li>
                      <li>Partial Prerendering (PPR)</li>
                      <li>App Router</li>
+                     <li>
+                        T3 Env (Framework agnostic validation for type-safe environment variables)
+                     </li>
                   </ul>
                </li>
 

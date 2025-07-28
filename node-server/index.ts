@@ -6,7 +6,7 @@ const hostname = '0.0.0.0'
 
 const port = 3000
 
-const connection = new Redis(process.env.REDIS_URL, {
+const connection = new Redis(process.env.REDIS_URL!, {
    maxRetriesPerRequest: null,
 })
 
@@ -31,7 +31,7 @@ const worker = new Worker(
 )
 
 const server = http.createServer((req, res) => {
-   if(process.env.REDIS_URL == null || process.env.REDIS_URL === '') {
+   if (process.env.REDIS_URL == null || process.env.REDIS_URL === '') {
       res.statusCode = 503
       res.setHeader('Content-Type', 'text/plain')
       res.end('BullMQ Worker not running\n')

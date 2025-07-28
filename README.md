@@ -12,6 +12,7 @@ This application demonstrates how to offload long or intensive processes (like s
    - React Compiler
    - Partial Prerendering (PPR)
    - App Router
+   - T3 Env (Framework agnostic validation for type-safe environment variables)
 
 - **tRPC** - End-to-end typesafe API between the Next.js frontend and API routes.
    - React Query for caching and revalidating
@@ -20,3 +21,9 @@ This application demonstrates how to offload long or intensive processes (like s
 
 - **BullMQ** - A Node.js library for creating and managing job queues based on Redis.
    - Worker process running in a dedicated Node.js API
+
+## Open Source
+
+This project is completely open source and available on GitHub.
+
+You can explore the full source code, clone the repository, suggest improvements, or use it as a starting point for your own applications.
