@@ -1,6 +1,5 @@
 import http from 'node:http'
 import { Worker } from 'bullmq'
-
 import { Redis } from 'ioredis'
 
 const hostname = '0.0.0.0'

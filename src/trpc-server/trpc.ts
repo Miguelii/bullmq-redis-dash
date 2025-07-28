@@ -1,7 +1,5 @@
-import { initTRPC, TRPCError } from '@trpc/server'
+import { initTRPC } from '@trpc/server'
 import { cache } from 'react'
-
-import { createTRPCStoreLimiter, defaultFingerPrint } from '@trpc-limiter/memory'
 
 export const createTRPCContext = cache(async () => {
    /**
