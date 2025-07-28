@@ -8,7 +8,7 @@ import { Suspense } from 'react'
 
 export const experimental_ppr = true
 
-export const revalidate = 3600
+export const revalidate = 3600 // 1h
 
 export default async function DashboardPage() {
    return (
@@ -31,7 +31,6 @@ export default async function DashboardPage() {
 
          <div className="flex flex-col gap-8">
             <h2 className="text-xl font-bold">Available Operations</h2>
-
             <JobsCards />
          </div>
 

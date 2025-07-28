@@ -1,7 +1,7 @@
 import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
-export const env = createEnv({
+export const ServerEnv = createEnv({
    server: {
       REDIS_URL: z.string().min(50),
    },
