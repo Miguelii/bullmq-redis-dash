@@ -21,7 +21,7 @@ const worker = new Worker(
       } else if (job.name === 'send_notification') {
          // Simulates run time of 20s
          await delay(20_000)
-         console.log(`[send-send_notification] job finish with expected error ID=[${job.id}]`)
+         console.log(`[send_notification] job finish with expected error ID=[${job.id}]`)
          throw new Error('MOCK_ERROR_JOB')
       } else {
          throw new Error('JOB NOT FOUND')
@@ -31,11 +31,15 @@ const worker = new Worker(
 )
 
 const server = http.createServer((req, res) => {
-   console.log(process.env)
-
-   res.statusCode = 200
-   res.setHeader('Content-Type', 'text/plain')
-   res.end('Worker is running\n')
+   if(process.env.REDIS_URL == null || process.env.REDIS_URL === '') {
+      res.statusCode = 503
+      res.setHeader('Content-Type', 'text/plain')
+      res.end('BullMQ Worker not running\n')
+   } else {
+      res.statusCode = 200
+      res.setHeader('Content-Type', 'text/plain')
+      res.end('Worker is running\n')
+   }
 })
 
 server.listen(port, hostname, () => {
