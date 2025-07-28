@@ -1,13 +1,14 @@
 'use client'
 
-import { MailIcon, Plus } from 'lucide-react'
+import { LucideIcon, MailIcon, Plus } from 'lucide-react'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { trpc } from '@/trpc-server/client-provider'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/card'
+import { type ExpectedJobsType } from '@/actions/add-job-to-email-queue.schema'
 
-export function EmailJobCard() {
+export function JobsCards() {
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const [isPending, startTransition] = useTransition()
 
@@ -32,18 +33,50 @@ export function EmailJobCard() {
 
    const router = useRouter()
 
-   const jobHandler = () => {
+   const jobHandler = (job: ExpectedJobsType) => {
       startTransition(async () => {
-         toast('Adding E-mail job...')
-         await addJobToEmailQueueAction.mutate()
+         toast(`Adding E-mail job [${job}]`)
+         await addJobToEmailQueueAction.mutate({ job })
       })
    }
 
    return (
+      <div className="grid grid-cols-1 lg:grid-cols-2 XL:grid-cols-4 gap-4">
+         <JobCardItem 
+            onClick={() => {
+               jobHandler("send-email")
+            }}
+            title='Email Campaign'
+            description='This job represents a bulk operation targeting all users in a email list.'
+            Icon={MailIcon}
+         />
+         <JobCardItem 
+            onClick={() => {
+               jobHandler("send_notification")
+            }}
+            title='Notification Campaign'
+            description='This job represents a failing operation that will always return an error.'
+            Icon={MailIcon}
+         />
+
+      </div>
+   )
+}
+
+
+type JobCardItemProps = {
+   onClick: () => void;
+   title: string;
+   description: string;
+   Icon: LucideIcon;
+}
+
+function JobCardItem({ onClick, title, description, Icon }: JobCardItemProps) {
+   return (
       <Card
          className="cursor-pointer hover:shadow-md transition-shadow duration-200 group"
          onClick={() => {
-            jobHandler()
+            onClick()
          }}
       >
          <CardHeader className="pb-3">
@@ -51,17 +84,17 @@ export function EmailJobCard() {
                <div
                   className={`p-2 rounded-lg bg-blue-500 text-white group-hover:scale-110 transition-transform duration-200`}
                >
-                  <MailIcon className="w-5 h-5" />
+                  <Icon className="w-5 h-5" />
                </div>
                <div className="flex-1">
-                  <CardTitle className="text-base font-medium">Email Campaign</CardTitle>
+                  <CardTitle className="text-base font-medium">{title}</CardTitle>
                </div>
                <Plus className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
             </div>
          </CardHeader>
          <CardContent className="pt-0">
             <CardDescription className="text-sm text-gray-600">
-               Send bulk emails to a list of users.
+               {description}
             </CardDescription>
          </CardContent>
       </Card>

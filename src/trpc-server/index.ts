@@ -1,15 +1,17 @@
 import { publicProcedure, createTRPCRouter } from './trpc'
 import { getAllQueryJobs } from '@/actions/get-all-querys-jobs'
-import { addJobToEmailQueueAction } from '@/actions/add-job-to-email-queue'
 import { timeout } from '@/lib/timeout'
+import { nodeServerHealthCheck } from '@/actions/node-server-health-check'
+import { AddJobActionSchema } from '@/actions/add-job-to-email-queue.schema'
+import { addJobToEmailQueueAction } from '@/actions/add-job-to-email-queue'
 
 export const appRouter = createTRPCRouter({
    getAllQueryJobs: publicProcedure.query(async () => {
       return await getAllQueryJobs()
    }),
 
-   addJobToEmailQueueAction: publicProcedure.mutation(async () => {
-      return await timeout(5_000, addJobToEmailQueueAction())
+   addJobToEmailQueueAction: publicProcedure.input(AddJobActionSchema).mutation(async ({ input }) => {
+      return await timeout(5_000, addJobToEmailQueueAction(input))
    }),
 
    healthCheck: publicProcedure.query(async () => {
@@ -17,6 +19,10 @@ export const appRouter = createTRPCRouter({
          status: 200,
          success: true,
       }
+   }),
+
+   nodejsHealthCheck: publicProcedure.query(async () => {
+      return await nodeServerHealthCheck();
    }),
 })
 

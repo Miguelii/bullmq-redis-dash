@@ -70,6 +70,39 @@ export function JobsMonitoringCard() {
                      </ScrollArea>
                   )}
                </TabsContent>
+
+               <TabsContent value="completed" className="mt-0">
+                  {(request?.data?.totalCompleted ?? 0) > 0 && (
+                     <ScrollArea className="h-[400px]">
+                        <div className="space-y-3">
+                           {request?.data?.jobsCompleted?.map((item, index) => (
+                              <JobMonitoringCardItem
+                                 job={item as RedisJobInfo}
+                                 Icon={MailIcon}
+                                 key={`completed-job-${item.id}-${index}`}
+                              />
+                           ))}
+                        </div>
+                     </ScrollArea>
+                  )}
+               </TabsContent>
+
+               <TabsContent value="failed" className="mt-0">
+                  {(request?.data?.totalFailed ?? 0) > 0 && (
+                     <ScrollArea className="h-[400px]">
+                        <div className="space-y-3">
+                           {request?.data?.jobsFailed?.map((item, index) => (
+                              <JobMonitoringCardItem
+                                 job={item as RedisJobInfo}
+                                 Icon={MailIcon}
+                                 key={`failed-job-${item.id}-${index}`}
+                              />
+                           ))}
+                        </div>
+                     </ScrollArea>
+                  )}
+               </TabsContent>
+
             </CardContent>
          </Tabs>
       </Card>
@@ -131,10 +164,6 @@ function JobMonitoringCardItem({ job, Icon }: JobMonitoringCardItemProps) {
                </div>
 
                <p className="text-sm text-gray-600 mb-2">ID: {job.id}</p>
-
-               <div className="bg-muted/50 p-4 text-sm whitespace-pre-wrap font-mono line-clamp-4">
-                  This job represents a bulk operation targeting all users in a specified list.
-               </div>
             </div>
          </div>
       </div>

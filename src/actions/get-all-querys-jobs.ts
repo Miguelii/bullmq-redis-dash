@@ -28,7 +28,7 @@ export async function getAllQueryJobs() {
                name: job.name,
                data: job.data,
                status: parseJobStatus(job),
-            }))
+            }));
 
             allJobs.push(...formattedJobs)
             // eslint-disable-next-line @typescript-eslint/no-unused-vars

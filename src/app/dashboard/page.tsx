@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/skeleton'
-import { EmailJobCard } from '@/features/email-job-card'
+import { JobsCards } from '@/features/jobs-cards'
 import { JobsMonitoringCard } from '@/features/jobs-monitoring-card'
 import { NodeServerStatusCard } from '@/features/node-server-status-card'
 import { RedisServerStatusCard } from '@/features/redis-server-status-card'
@@ -32,9 +32,7 @@ export default async function DashboardPage() {
          <div className="flex flex-col gap-8">
             <h2 className="text-xl font-bold">Available Operations</h2>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 XL:grid-cols-4 gap-4">
-               <EmailJobCard />
-            </div>
+            <JobsCards />
          </div>
 
          <div className="flex flex-col gap-8">

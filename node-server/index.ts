@@ -20,6 +20,12 @@ const worker = new Worker(
       // Simulates run time of 20s
       await delay(20_000);
       console.log(`[send-email] job finish with ID=[${job.id}]`);
+    } else if (job.name === 'send_notification') {
+      // Simulates run time of 20s
+      await delay(20_000);
+      throw new Error("MOCK_ERROR_JOB");
+    } else {
+      throw new Error("JOB NOT FOUND")
     }
   },
   { connection },

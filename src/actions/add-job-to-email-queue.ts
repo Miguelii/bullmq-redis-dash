@@ -4,18 +4,19 @@ import { tryCatch } from '@/lib/try-catch'
 import { RedisQueueEnum } from '@/types/RedisQueueEnum'
 import { revalidatePath } from 'next/cache'
 import RedisClient from '@/lib/redis-client'
+import { addJobToEmailQueueActionProps } from './add-job-to-email-queue.schema'
 
-export async function addJobToEmailQueueAction() {
+export async function addJobToEmailQueueAction({ job }: addJobToEmailQueueActionProps) {
    const { data, error } = await tryCatch(async () => {
+
       let success = false
       let jobId = null
 
       const queue = await RedisClient.getQueue(RedisQueueEnum.EMAILS)
 
       if (queue) {
-         const res = await queue.add('send-email', {
-            to: 'user@example.com',
-            subject: 'Vote for us!',
+         const res = await queue.add(job, {
+            test_body: 'Vote for us!',
          })
 
          success = true

@@ -1,7 +1,11 @@
 import { ServerStatusCard } from '@/components/server-status-card'
+import { trpc } from '@/trpc-server/server-provider'
 
 export async function NodeServerStatusCard() {
-   const nodeServiceIsUpAndRunning = false
+
+   const request = await trpc.nodejsHealthCheck();
+   
+   const nodeServiceIsUpAndRunning = request?.success === true;
 
    return (
       <ServerStatusCard
